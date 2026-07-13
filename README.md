@@ -29,6 +29,13 @@ ANSWER: [A/B/C/D]
 CONFIDENCE: [integer 0-100]
 ```
 
+## Follow this for the hackathon
+
+1. **[`HACKATHON_PLAYBOOK.md`](./HACKATHON_PLAYBOOK.md)** — merged Akul+Yohan day-by-day (start here)  
+2. [`EXECUTION.md`](./EXECUTION.md) — short technical checklist  
+3. [`paper/research_brief.md`](./paper/research_brief.md) — brief draft  
+4. [`docs/`](./docs/) — Day 1 / Day 2 writing templates  
+
 ## Quickstart
 
 ```bash
@@ -44,7 +51,8 @@ cp .env.example .env
 ollama pull llama3.1
 ollama pull mistral
 
-# 3) Smoke-test APIs
+# 3) Verify + smoke-test
+python src/setup_verify.py
 python src/smoke_test.py --both
 
 # 4) Build frozen question bank (~180 Qs at default settings)
@@ -55,8 +63,9 @@ python src/collect.py --smoke          # tiny test first
 python src/collect.py                  # full run
 python src/collect.py --resume         # if interrupted
 
-# 6) Analyze + figures
+# 6) Analyze + figures (+ Day 5 dump for Akul)
 python src/analyze.py
+python src/final_verification.py
 ```
 
 Default scale ≈ `180 questions × 3 models × 2 trials ≈ 1,080` calls.
@@ -69,7 +78,9 @@ src/             build / collect / analyze pipeline
 data/            question bank + raw/processed CSVs
 figures/         publication figures
 paper/           research brief draft
-EXECUTION.md     day-by-day checklist (READ THIS)
+docs/            Day 1 / Day 2 templates for Akul
+HACKATHON_PLAYBOOK.md   merged full guide (Akul org + Yohan code)
+EXECUTION.md            short technical checklist
 ```
 
 ## Key outputs

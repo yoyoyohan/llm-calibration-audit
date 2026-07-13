@@ -1,10 +1,13 @@
-# EXECUTION GUIDE — What to do every day
+# EXECUTION GUIDE — Short technical checklist
+
+**Prefer the full merged guide:** [`HACKATHON_PLAYBOOK.md`](./HACKATHON_PLAYBOOK.md)  
+(Drive, literature, Day 1–6 writing, Finale + exact `src/` commands.)
 
 **Deadline:** Sat Jul 18, 2026 · 11:59 PM ET (submit by ~5 PM ET)  
 **Project folder:** `llm-calibration-audit/`  
 **Split:** Yohan = code/runs · Akul = literature + Research Brief  
 
-This is the only checklist you need to finish the project.
+Below is the condensed Yohan tech path.
 
 ---
 
