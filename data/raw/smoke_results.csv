@@ -1,0 +1,163 @@
+question_id,subject,domain,difficulty,model_id,backend,model_name,trial,temperature,prompt,raw_response,error,predicted_letter,correct_letter,is_correct,confidence,parse_ok,timestamp_utc
+q0000,elementary_mathematics,STEM,easy,gemini_flash,gemini,gemini-flash-latest,0,0.3,"Answer the following multiple-choice question. Then rate your confidence.
+
+Question: Kerri ran the same distance in four different races. Her times were 18.04 seconds, 21.39 seconds, 12.99 seconds, and 14.14 seconds. If the individual times are rounded to the nearest one-tenth of a second, what is the estimate of Kerri's total time for all four races?
+
+A. 66.6 seconds
+B. 66.5 seconds
+C. 66 seconds
+D. 65.5 seconds
+
+Respond in EXACTLY this format with no other text:
+ANSWER: [A/B/C/D]
+CONFIDENCE: [integer 0-100]
+
+Example of a valid reply:
+ANSWER: B
+CONFIDENCE: 70
+","ANSWER: A
+CONFIDENCE: 100",,A,B,False,100.0,True,2026-07-13T18:15:34.879279+00:00
+q0000,elementary_mathematics,STEM,easy,llama3.1,ollama,llama3.1,0,0.3,"Answer the following multiple-choice question. Then rate your confidence.
+
+Question: Kerri ran the same distance in four different races. Her times were 18.04 seconds, 21.39 seconds, 12.99 seconds, and 14.14 seconds. If the individual times are rounded to the nearest one-tenth of a second, what is the estimate of Kerri's total time for all four races?
+
+A. 66.6 seconds
+B. 66.5 seconds
+C. 66 seconds
+D. 65.5 seconds
+
+Respond in EXACTLY this format with no other text:
+ANSWER: [A/B/C/D]
+CONFIDENCE: [integer 0-100]
+
+Example of a valid reply:
+ANSWER: B
+CONFIDENCE: 70
+","ANSWER: A
+CONFIDENCE: 90",,A,B,False,90.0,True,2026-07-13T18:16:08.949770+00:00
+q0000,elementary_mathematics,STEM,easy,mistral,ollama,mistral,0,0.3,"Answer the following multiple-choice question. Then rate your confidence.
+
+Question: Kerri ran the same distance in four different races. Her times were 18.04 seconds, 21.39 seconds, 12.99 seconds, and 14.14 seconds. If the individual times are rounded to the nearest one-tenth of a second, what is the estimate of Kerri's total time for all four races?
+
+A. 66.6 seconds
+B. 66.5 seconds
+C. 66 seconds
+D. 65.5 seconds
+
+Respond in EXACTLY this format with no other text:
+ANSWER: [A/B/C/D]
+CONFIDENCE: [integer 0-100]
+
+Example of a valid reply:
+ANSWER: B
+CONFIDENCE: 70
+"," ANSWER: A
+CONFIDENCE: 95",,A,B,False,95.0,True,2026-07-13T18:16:15.880236+00:00
+q0001,high_school_biology,STEM,easy,gemini_flash,gemini,gemini-flash-latest,0,0.3,"Answer the following multiple-choice question. Then rate your confidence.
+
+Question: The structure of ATP synthase in the plasma membranes of bacteria is nearly identical to that in the mitochondria and chloroplasts of eukaryotic cells. This similarity best supports which of the following hypotheses?
+
+A. Eukaryotic and prokaryotic cells share a common ancestor.
+B. Mitochondria are derived from ancient aerobic bacteria, and chloroplasts are derived from ancient photosynthetic bacteria.
+C. The similarity of ATP synthase in bacteria, mitochondria, and chloroplasts is an example of convergent evolution.
+D. Mitochondria and chloroplasts escaped from eukaryotic cells and formed aerobic and photosynthetic prokaryotes.
+
+Respond in EXACTLY this format with no other text:
+ANSWER: [A/B/C/D]
+CONFIDENCE: [integer 0-100]
+
+Example of a valid reply:
+ANSWER: B
+CONFIDENCE: 70
+","ANSWER: A
+CONFIDENCE: 95",,A,B,False,95.0,True,2026-07-13T18:16:37.056499+00:00
+q0001,high_school_biology,STEM,easy,llama3.1,ollama,llama3.1,0,0.3,"Answer the following multiple-choice question. Then rate your confidence.
+
+Question: The structure of ATP synthase in the plasma membranes of bacteria is nearly identical to that in the mitochondria and chloroplasts of eukaryotic cells. This similarity best supports which of the following hypotheses?
+
+A. Eukaryotic and prokaryotic cells share a common ancestor.
+B. Mitochondria are derived from ancient aerobic bacteria, and chloroplasts are derived from ancient photosynthetic bacteria.
+C. The similarity of ATP synthase in bacteria, mitochondria, and chloroplasts is an example of convergent evolution.
+D. Mitochondria and chloroplasts escaped from eukaryotic cells and formed aerobic and photosynthetic prokaryotes.
+
+Respond in EXACTLY this format with no other text:
+ANSWER: [A/B/C/D]
+CONFIDENCE: [integer 0-100]
+
+Example of a valid reply:
+ANSWER: B
+CONFIDENCE: 70
+","ANSWER: B
+CONFIDENCE: 90",,B,B,True,90.0,True,2026-07-13T18:17:09.156500+00:00
+q0001,high_school_biology,STEM,easy,mistral,ollama,mistral,0,0.3,"Answer the following multiple-choice question. Then rate your confidence.
+
+Question: The structure of ATP synthase in the plasma membranes of bacteria is nearly identical to that in the mitochondria and chloroplasts of eukaryotic cells. This similarity best supports which of the following hypotheses?
+
+A. Eukaryotic and prokaryotic cells share a common ancestor.
+B. Mitochondria are derived from ancient aerobic bacteria, and chloroplasts are derived from ancient photosynthetic bacteria.
+C. The similarity of ATP synthase in bacteria, mitochondria, and chloroplasts is an example of convergent evolution.
+D. Mitochondria and chloroplasts escaped from eukaryotic cells and formed aerobic and photosynthetic prokaryotes.
+
+Respond in EXACTLY this format with no other text:
+ANSWER: [A/B/C/D]
+CONFIDENCE: [integer 0-100]
+
+Example of a valid reply:
+ANSWER: B
+CONFIDENCE: 70
+"," ANSWER: A
+CONFIDENCE: 95",,A,B,False,95.0,True,2026-07-13T18:17:16.451553+00:00
+q0002,conceptual_physics,STEM,easy,gemini_flash,gemini,gemini-flash-latest,0,0.3,"Answer the following multiple-choice question. Then rate your confidence.
+
+Question: A barometer that uses water instead of mercury will be
+
+A. shorter
+B. taller
+C. equal in height
+D. inoperable
+
+Respond in EXACTLY this format with no other text:
+ANSWER: [A/B/C/D]
+CONFIDENCE: [integer 0-100]
+
+Example of a valid reply:
+ANSWER: B
+CONFIDENCE: 70
+","ANSWER: B
+CONFIDENCE: 100",,B,B,True,100.0,True,2026-07-13T18:17:38.087323+00:00
+q0002,conceptual_physics,STEM,easy,llama3.1,ollama,llama3.1,0,0.3,"Answer the following multiple-choice question. Then rate your confidence.
+
+Question: A barometer that uses water instead of mercury will be
+
+A. shorter
+B. taller
+C. equal in height
+D. inoperable
+
+Respond in EXACTLY this format with no other text:
+ANSWER: [A/B/C/D]
+CONFIDENCE: [integer 0-100]
+
+Example of a valid reply:
+ANSWER: B
+CONFIDENCE: 70
+","ANSWER: A
+CONFIDENCE: 80",,A,B,False,80.0,True,2026-07-13T18:18:10.217060+00:00
+q0002,conceptual_physics,STEM,easy,mistral,ollama,mistral,0,0.3,"Answer the following multiple-choice question. Then rate your confidence.
+
+Question: A barometer that uses water instead of mercury will be
+
+A. shorter
+B. taller
+C. equal in height
+D. inoperable
+
+Respond in EXACTLY this format with no other text:
+ANSWER: [A/B/C/D]
+CONFIDENCE: [integer 0-100]
+
+Example of a valid reply:
+ANSWER: B
+CONFIDENCE: 70
+"," ANSWER: A
+CONFIDENCE: 100",,A,B,False,100.0,True,2026-07-13T18:18:16.227702+00:00
