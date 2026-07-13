@@ -1,0 +1,29 @@
+# Scoped NSRI experiment config — freeze after Day 1 question bank build
+experiment_name: llm-calibration-difficulty-audit
+temperature: 0.3
+max_output_tokens: 80
+trials_per_question: 2
+questions_per_cell: 20   # per domain × difficulty
+random_seed: 42
+
+models:
+  - id: gemini_flash
+    backend: gemini
+    model_name: gemini-1.5-flash
+  - id: llama3.1
+    backend: ollama
+    model_name: llama3.1
+  - id: mistral
+    backend: ollama
+    model_name: mistral
+
+# Gemini free-tier pacing (~15 RPM). Increase if you hit 429s.
+gemini_sleep_seconds: 4.0
+ollama_sleep_seconds: 0.1
+
+# Paths (relative to repo root)
+question_bank_path: data/question_bank.csv
+raw_results_path: data/raw/final_results.csv
+checkpoint_dir: data/raw/checkpoints
+processed_dir: data/processed
+figures_dir: figures
