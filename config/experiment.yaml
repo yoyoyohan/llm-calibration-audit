@@ -1,7 +1,7 @@
 # Scoped NSRI experiment config — freeze after Day 1 question bank build
 experiment_name: llm-calibration-difficulty-audit
 temperature: 0.3
-max_output_tokens: 80
+max_output_tokens: 256
 trials_per_question: 2
 questions_per_cell: 20   # per domain × difficulty
 random_seed: 42
@@ -9,7 +9,8 @@ random_seed: 42
 models:
   - id: gemini_flash
     backend: gemini
-    model_name: gemini-1.5-flash
+    # Stable alias; gemini-1.5/2.5-flash often 404 for new API keys
+    model_name: gemini-flash-latest
   - id: llama3.1
     backend: ollama
     model_name: llama3.1

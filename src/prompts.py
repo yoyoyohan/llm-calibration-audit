@@ -30,6 +30,10 @@ Question: {question}
 Respond in EXACTLY this format with no other text:
 ANSWER: [A/B/C/D]
 CONFIDENCE: [integer 0-100]
+
+Example of a valid reply:
+ANSWER: B
+CONFIDENCE: 70
 """
 
 

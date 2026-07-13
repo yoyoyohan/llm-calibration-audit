@@ -37,6 +37,14 @@ def build_difficulty_lookup(diff_cfg: dict) -> dict[str, str]:
 
 
 def normalize_choices(value) -> list[str]:
+    # HuggingFace/pandas may yield list, tuple, or numpy array
+    if hasattr(value, "tolist") and not isinstance(value, (str, bytes)):
+        try:
+            value = value.tolist()
+        except Exception:  # noqa: BLE001
+            pass
+    if isinstance(value, tuple):
+        value = list(value)
     if isinstance(value, list):
         return [str(x) for x in value]
     if isinstance(value, str):

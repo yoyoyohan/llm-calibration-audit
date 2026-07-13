@@ -17,6 +17,28 @@ class LLMClientError(RuntimeError):
     pass
 
 
+def _extract_gemini_text(data: dict) -> str:
+    """Pull visible text from Gemini response parts (skip empty / thought-only structure)."""
+    candidates = data.get("candidates") or []
+    if not candidates:
+        raise LLMClientError(f"Gemini returned no candidates: {data}")
+    content = candidates[0].get("content") or {}
+    parts = content.get("parts") or []
+    texts: list[str] = []
+    for part in parts:
+        if not isinstance(part, dict):
+            continue
+        # Skip explicit thought parts if present
+        if part.get("thought") is True:
+            continue
+        t = part.get("text")
+        if t:
+            texts.append(t)
+    if not texts:
+        raise LLMClientError(f"Gemini response missing text parts: {data}")
+    return "\n".join(texts).strip()
+
+
 def call_gemini(prompt: str, model_name: Optional[str] = None, temperature: Optional[float] = None) -> str:
     cfg = load_experiment()
     api_key = os.getenv("GEMINI_API_KEY")
@@ -25,32 +47,40 @@ def call_gemini(prompt: str, model_name: Optional[str] = None, temperature: Opti
             "GEMINI_API_KEY missing. Copy .env.example to .env and add your key from Google AI Studio."
         )
 
-    model = model_name or os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    model = model_name or os.getenv("GEMINI_MODEL", "gemini-flash-latest")
     temp = cfg["temperature"] if temperature is None else temperature
-    max_tokens = cfg.get("max_output_tokens", 80)
+    max_tokens = cfg.get("max_output_tokens", 256)
 
     url = (
         f"https://generativelanguage.googleapis.com/v1beta/models/"
         f"{model}:generateContent?key={api_key}"
     )
+    gen_cfg: dict = {
+        "temperature": temp,
+        "maxOutputTokens": max_tokens,
+    }
+    # Reduce thinking-token use when supported (ignored if unsupported)
+    gen_cfg["thinkingConfig"] = {"thinkingBudget": 0}
+
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {
-            "temperature": temp,
-            "maxOutputTokens": max_tokens,
-        },
+        "generationConfig": gen_cfg,
     }
 
     last_err: Exception | None = None
     for attempt in range(3):
         try:
-            resp = requests.post(url, json=payload, timeout=60)
+            resp = requests.post(url, json=payload, timeout=90)
             if resp.status_code == 429:
                 time.sleep(8 * (attempt + 1))
                 continue
+            # Some models reject thinkingConfig — retry without it
+            if resp.status_code == 400 and "thinking" in resp.text.lower() and "thinkingConfig" in gen_cfg:
+                gen_cfg.pop("thinkingConfig", None)
+                payload["generationConfig"] = gen_cfg
+                continue
             resp.raise_for_status()
-            data = resp.json()
-            return data["candidates"][0]["content"]["parts"][0]["text"]
+            return _extract_gemini_text(resp.json())
         except Exception as e:  # noqa: BLE001
             last_err = e
             time.sleep(2 * (attempt + 1))
