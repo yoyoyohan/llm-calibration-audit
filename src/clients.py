@@ -72,12 +72,14 @@ def call_gemini(prompt: str, model_name: Optional[str] = None, temperature: Opti
         try:
             resp = requests.post(url, json=payload, timeout=90)
             if resp.status_code == 429:
+                last_err = LLMClientError(f"429 rate/quota: {resp.text[:300]}")
                 time.sleep(8 * (attempt + 1))
                 continue
             # Some models reject thinkingConfig — retry without it
             if resp.status_code == 400 and "thinking" in resp.text.lower() and "thinkingConfig" in gen_cfg:
                 gen_cfg.pop("thinkingConfig", None)
                 payload["generationConfig"] = gen_cfg
+                last_err = LLMClientError(f"400 retry without thinkingConfig: {resp.text[:200]}")
                 continue
             resp.raise_for_status()
             return _extract_gemini_text(resp.json())

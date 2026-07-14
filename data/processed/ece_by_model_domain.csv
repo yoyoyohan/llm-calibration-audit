@@ -1,0 +1,9 @@
+model_id,domain,ece,n
+gemini_flash,Humanities,0.050000000000000044,1
+gemini_flash,STEM,0.2785714285714286,14
+llama3.1,Humanities,0.12791666666666657,120
+llama3.1,STEM,0.4133333333333338,120
+llama3.1,Social_Science,0.15166666666666695,120
+mistral,Humanities,0.2912499999999999,120
+mistral,STEM,0.6563025210084034,119
+mistral,Social_Science,0.39249999999999996,120
