@@ -75,12 +75,18 @@ def main() -> None:
         raise FileNotFoundError(f"Missing {raw_path}. Run collect.py first.")
 
     raw = load_clean_results(raw_path)
-    parse_rate = raw["parse_ok"].mean() if len(raw) else 0.0
-    df = raw[raw["parse_ok"] & raw["confidence"].notna()].copy()
+    primary = cfg.get("primary_models") or [m["id"] for m in cfg["models"]]
+    # Primary figures/tables exclude exploratory arms (e.g. failed Gemini quota run)
+    raw_primary = raw[raw["model_id"].isin(primary)].copy()
+    parse_rate = raw_primary["parse_ok"].mean() if len(raw_primary) else 0.0
+    df = raw_primary[raw_primary["parse_ok"] & raw_primary["confidence"].notna()].copy()
     df["confidence"] = pd.to_numeric(df["confidence"], errors="coerce")
     df = df.dropna(subset=["confidence"])
     df["confidence_norm"] = df["confidence"] / 100.0
     df["difficulty_numeric"] = df["difficulty"].map(DIFFICULTY_NUMERIC)
+    # Stable plot order
+    df["model_id"] = pd.Categorical(df["model_id"], categories=primary, ordered=True)
+    df = df.sort_values("model_id")
 
     if df.empty:
         raise RuntimeError("No parseable rows. Check collect output / prompt format.")
@@ -168,8 +174,10 @@ def main() -> None:
 
     meta = {
         "n_raw_rows": int(len(raw)),
+        "n_primary_raw_rows": int(len(raw_primary)),
         "n_analyzed_rows": int(len(df)),
-        "parse_ok_rate": float(parse_rate),
+        "parse_ok_rate_primary": float(parse_rate),
+        "primary_models": list(primary),
         "temperature": cfg["temperature"],
         "trials_per_question": cfg["trials_per_question"],
     }
@@ -179,8 +187,8 @@ def main() -> None:
     sns.set_theme(style="whitegrid")
     plt.rcParams.update({"figure.dpi": 150, "savefig.dpi": 300, "font.size": 11})
 
-    # Figure 1: reliability diagrams
-    model_ids = list(df["model_id"].unique())
+    # Figure 1: reliability diagrams (primary models only, config order)
+    model_ids = [m for m in primary if m in set(df["model_id"].astype(str))]
     n = len(model_ids)
     fig, axes = plt.subplots(1, n, figsize=(4.5 * n, 4.2), squeeze=False)
     for ax, model_id in zip(axes[0], model_ids):
@@ -202,8 +210,12 @@ def main() -> None:
 
     # Figure 2: overconfidence vs difficulty
     fig, ax = plt.subplots(figsize=(8, 5.5))
-    for model_id, sub in summary.groupby("model_id"):
-        sub = sub.sort_values("difficulty")
+    summary_plot = summary.copy()
+    summary_plot["model_id"] = pd.Categorical(summary_plot["model_id"], categories=primary, ordered=True)
+    for model_id in model_ids:
+        sub = summary_plot[summary_plot["model_id"] == model_id].sort_values("difficulty")
+        if sub.empty:
+            continue
         xs = [DIFFICULTY_ORDER.index(d) for d in sub["difficulty"]]
         ax.plot(xs, sub["overconfidence_gap"], "o-", linewidth=2, markersize=8, label=model_id)
     ax.axhline(0, color="gray", linestyle=":", linewidth=1)
@@ -219,6 +231,8 @@ def main() -> None:
 
     # Figure 3: domain ECE heatmap
     if not domain_ece.empty:
+        domain_ece = domain_ece[domain_ece["model_id"].isin(model_ids)].copy()
+        domain_ece["model_id"] = pd.Categorical(domain_ece["model_id"], categories=model_ids, ordered=True)
         pivot = domain_ece.pivot(index="model_id", columns="domain", values="ece")
         fig, ax = plt.subplots(figsize=(8, 4.5))
         sns.heatmap(pivot, annot=True, fmt=".3f", cmap="RdYlGn_r", ax=ax)

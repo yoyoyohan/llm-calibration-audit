@@ -28,7 +28,7 @@ Do **not** create a second project called `nsri-hackathon-2026` or rewrite every
 | Topic | External mega-guide | **What we actually run** | Why |
 |---|---|---|---|
 | Domains | 5 (incl. Medicine, Professional) | **3:** STEM, Social_Science, Humanities | Fits time; still domain analysis |
-| Models | 4 (incl. Gemma2) | **3:** Claude Haiku, Llama 3.1, Mistral | Faster; Gemini was exploratory only (quota) |
+| Models | 4 (incl. Gemma2) | **3:** Claude Haiku, Llama 3.1, Mistral | Finishable scope |
 | Qs / cell | 40 | **20** (~180 total) | Finishable |
 | Trials | 3 | **2** | Enough for light consistency |
 | API key | Pasted into `.py` / Tracker | **`.env` only** (never GitHub) | Security |

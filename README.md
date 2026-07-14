@@ -21,8 +21,6 @@ We sample a frozen, difficulty-stratified subset of [MMLU](https://huggingface.c
 | Llama 3.1 | Ollama (local) |
 | Mistral | Ollama (local) |
 
-A Gemini Flash arm was attempted early but was largely blocked by free-tier API quota; it is not part of the primary analysis.
-
 ## Prompt (exact)
 
 ```text

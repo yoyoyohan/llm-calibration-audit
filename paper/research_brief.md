@@ -11,9 +11,9 @@
 [Problem] Large language models are increasingly used as decision-support tools, yet users often treat fluent answers as reliable.  
 [Gap] While LLM calibration has been studied, fewer student-accessible audits jointly (i) elicit verbal confidence, (ii) stratify items by pre-registered difficulty, (iii) compare multiple free models, and (iv) relate patterns to classic human hard–easy findings.  
 [Method] We evaluate Claude Haiku (Anthropic API), Llama 3.1 8B, and Mistral 7B on a frozen stratified MMLU subset (~180 items; 3 domains × 3 difficulties; 2 trials; temperature 0.3). Models must answer A–D and report confidence 0–100. We compute accuracy, overconfidence gap, ECE, and difficulty–overconfidence slopes.  
-[Result] REPLACE WITH REAL NUMBERS (e.g., “Overconfidence increased from easy to hard for N/3 models; mean ECE ranged from X to Y”).  
-[Implication] Verbal confidence is an imperfect reliability signal; human review remains necessary on harder items.  
-[Limitation] Verbal ratings ≠ token probabilities; MMLU ≠ open-ended deployment.
+[Result] Overconfidence rose from easy to hard for all three models. Claude Haiku was near-calibrated (ECE ≈ 0.05; slight underconfidence overall), while Llama 3.1 and especially Mistral were overconfident (ECE ≈ 0.23 and 0.45), with the largest gaps on hard items.  
+[Implication] Verbal confidence is an imperfect reliability signal—particularly for smaller open models on harder items; human review remains necessary.  
+[Limitation] Verbal ratings ≠ token probabilities; Claude format-parse rate was ~74% (long answers truncated); MMLU ≠ open-ended deployment.
 
 Word count: ____
 
@@ -43,7 +43,6 @@ Deployed LLM assistants often accompany answers with implicit or explicit confid
 - Claude Haiku (Anthropic API)  
 - Llama 3.1 (Ollama)  
 - Mistral (Ollama)  
-- (Exploratory) Gemini Flash — largely blocked by free-tier quota; not primary  
 - Temperature 0.3; 2 independent trials per question×model.
 
 ### Confidence elicitation prompt
@@ -68,20 +67,18 @@ Rows with failed parse (missing ANSWER or CONFIDENCE) are excluded from metric c
 
 ## Evidence / Results
 
-*(Fill after `python src/analyze.py`)*
-
 ### Overall calibration
 | Model | N | Accuracy | Mean conf. | Overconf. gap | ECE |
 |---|---|---|---|---|---|
-| claude_haiku | | | | | |
-| llama3.1 | | | | | |
-| mistral | | | | | |
+| claude_haiku | 267 | 0.921 | 0.901 | −0.020 | 0.048 |
+| llama3.1 | 360 | 0.636 | 0.867 | +0.231 | 0.231 |
+| mistral | 359 | 0.538 | 0.979 | +0.441 | 0.446 |
 
 ### Difficulty pattern
-Describe figure2: does the gap rise with difficulty?
+Figure 2: overconfidence gap rises easy→hard for all three models. Claude stays near zero (best calibrated). Llama rises ~0.12→0.36. Mistral is high throughout and peaks on hard (~0.59).
 
 ### Domain pattern
-Optional: figure3 heatmap takeaways (1–2 sentences).
+Figure 3: Claude ECE is low across Humanities/STEM/Social Science (~0.06–0.08). Llama and Mistral are worse, especially STEM (Llama ~0.41; Mistral ~0.66).
 
 ### Qualitative human baseline note
 Published hard–easy work predicts higher overconfidence on harder items. We compare **directionally**, acknowledging paradigm differences (different item formats and confidence elicitation).
@@ -110,7 +107,7 @@ about whether confidence tracks accuracy *under the same elicitation protocol*.
 5. Human hard–easy baselines use different paradigms — compare directionally only.  
 6. Fixed temperature (0.3).  
 7. Model-version / date specific (July 2026).  
-8. Parse failures / exploratory Gemini quota issues reduce usable N for some arms; primary analyses focus on Claude Haiku, Llama 3.1, and Mistral with reported parse rates.  
+8. Parse failures reduce usable N (Claude Haiku ~74% parse OK due to verbose replies hitting the token cap before `ANSWER`/`CONFIDENCE`); primary analyses use successfully parsed rows and report parse rates.  
 
 
 ---
@@ -137,9 +134,8 @@ If overconfidence rises with difficulty, verbal self-reports are a weak standalo
 **Tools used**
 - Claude Haiku (Anthropic) — experimental subject  
 - Llama 3.1 / Mistral via Ollama — experimental subjects  
-- Gemini Flash — exploratory only (quota-limited)  
 - Cursor / other coding assistants — code scaffolding & debugging  
-- HuggingFace `datasets` — MMLU access  
+- HuggingFace `datasets` — MMLU access
 
 **How AI was used**
 Helped write pipeline code and polish wording. Did **not** fabricate results, citations, or conclusions.

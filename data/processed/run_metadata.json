@@ -1,7 +1,13 @@
 {
   "n_raw_rows": 1080,
-  "n_analyzed_rows": 734,
-  "parse_ok_rate": 0.6796296296296296,
+  "n_primary_raw_rows": 1080,
+  "n_analyzed_rows": 986,
+  "parse_ok_rate_primary": 0.912962962962963,
+  "primary_models": [
+    "claude_haiku",
+    "llama3.1",
+    "mistral"
+  ],
   "temperature": 0.3,
   "trials_per_question": 2
 }

@@ -6,8 +6,13 @@ trials_per_question: 2
 questions_per_cell: 20   # per domain × difficulty
 random_seed: 42
 
+# Primary study arms (figures + tables). Order = display order.
+primary_models:
+  - claude_haiku
+  - llama3.1
+  - mistral
+
 models:
-  # Primary closed/API model
   - id: claude_haiku
     backend: anthropic
     model_name: claude-haiku-4-5-20251001
@@ -17,14 +22,9 @@ models:
   - id: mistral
     backend: ollama
     model_name: mistral
-  # Optional / historical — free-tier quota failed in main run; not primary analysis
-  - id: gemini_flash
-    backend: gemini
-    model_name: gemini-flash-latest
 
 # API pacing
 anthropic_sleep_seconds: 1.0
-gemini_sleep_seconds: 4.0
 ollama_sleep_seconds: 0.1
 
 # Paths (relative to repo root)

@@ -24,11 +24,14 @@ def main() -> None:
         raise SystemExit(f"Missing {raw_path}. Run collect.py first.")
 
     df = pd.read_csv(raw_path)
+    primary = cfg.get("primary_models") or [m["id"] for m in cfg["models"]]
     parse_ok = df["parse_ok"].astype(str).str.lower().isin(["1", "true", "yes"])
     df["parse_ok"] = parse_ok
     df["is_correct"] = df["is_correct"].astype(str).str.lower().isin(["1", "true", "yes"])
+    df = df[df["model_id"].isin(primary)].copy()
 
-    print("=== FINAL DATA VERIFICATION ===")
+    print("=== FINAL DATA VERIFICATION (primary models only) ===")
+    print(f"Primary models: {primary}")
     print(f"Total rows: {len(df)}")
     print(f"Parse OK rate: {df['parse_ok'].mean():.1%}")
     print("\nRows by model:")
