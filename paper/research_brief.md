@@ -87,15 +87,30 @@ Published hard–easy work predicts higher overconfidence on harder items. We co
 
 ---
 
+## Supplementary finding — constrained output format (add to Method)
+
+We use a constrained output format (`ANSWER` + `CONFIDENCE` only), forbidding
+free-form chain-of-thought. This matches common deployed structured/API use,
+keeps confidence elicitation comparable across models, and avoids confounding
+where visible reasoning text itself changes stated confidence.
+
+We ran a small supplementary diagnostic (`src/diagnostic_format.py`) comparing
+constrained vs unconstrained prompting on a handful of bank items. If accuracy
+rises when models may reason step-by-step, that supports a format effect on
+*accuracy* without invalidating the main calibration analysis: calibration is
+about whether confidence tracks accuracy *under the same elicitation protocol*.
+
 ## Limitations
 
-1. Verbal confidence ≠ internal token probabilities.  
-2. MMLU multiple choice ≠ open-ended real-world use.  
-3. Subject-tier difficulty is a proxy, not item-IRT calibration.  
-4. Human 1982/1999 paradigms are not identical to our protocol — avoid claiming exact effect-size equality.  
-5. Fixed temperature (0.3); other temperatures may change confidence verbosity.  
-6. Small open models + Gemini Flash only; results are version- and date-specific.  
-7. Parse failures may bias remaining sample.
+1. Verbal confidence ≠ token probabilities.  
+2. Constrained `ANSWER`/`CONFIDENCE` format suppresses chain-of-thought and can lower accuracy vs standard MMLU CoT-style evals (especially multi-step math). Our claims concern **miscalibration** (confidence − accuracy) under this elicitation protocol, not absolute leaderboard scores.  
+3. MMLU multiple choice ≠ open-ended deployment.  
+4. Subject-tier difficulty is a proxy, not item-level IRT.  
+5. Human hard–easy baselines use different paradigms — compare directionally only.  
+6. Fixed temperature (0.3).  
+7. Model-version / date specific (July 2026).  
+8. Parse failures / API quota (Gemini) reduce usable N for some models; primary analyses use successfully parsed rows and report parse rates.  
+
 
 ---
 

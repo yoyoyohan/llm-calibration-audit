@@ -1,0 +1,103 @@
+question_id,difficulty,model_id,format,predicted,correct,is_correct,confidence,parse_ok,error,raw_response,timestamp_utc
+q0071,easy,llama3.1,constrained,D,B,False,80.0,True,,"ANSWER: D
+CONFIDENCE: 80",2026-07-14T00:28:11.259735+00:00
+q0071,easy,llama3.1,unconstrained,B,B,True,,True,,"To answer this question, let's break down each term:
+
+* Apartheid refers to a system of institutionalized racial segregation and discrimination in South Africa.
+* Ethnic cleansing is the forced removal or expulsion of an ethnic group from a particular territory.
+* Integration refers to the process of combining different groups into one community.
+
+Now, considering these definitions, we can see that all three terms are related to issues of social separation and division. However, they do not all occur in Nazi Germany during World War I (A), nor is integration a form of segregation or ethnic cleansing (C). The correct answer must be related to the common theme among these concepts.
+
+The most fitting choice is B: They are all forms of residential segregation. Each term describes a situation w",2026-07-14T00:28:25.123999+00:00
+q0071,easy,mistral,constrained,B,B,True,100.0,True,," ANSWER: B
+CONFIDENCE: 100",2026-07-14T00:28:30.684928+00:00
+q0071,easy,mistral,unconstrained,B,B,True,,True,," FINAL_ANSWER: B. They are all forms of residential segregation.
+
+Reasoning: Apartheid was a system of institutionalized racial segregation in South Africa that existed from 1948 to 1994. Ethnic cleansing is the systematic expulsion of ethnic or national groups from a given area, often accompanied by acts of violence. Integration, while not inherently a form of segregation, can refer to policies aimed at ending racial segregation and promoting equal opportunities. However, all three involve some degree of separation or isolation based on race or ethnicity, making residential segregation the common thread among them.",2026-07-14T00:28:40.349169+00:00
+q0060,easy,llama3.1,constrained,B,B,True,90.0,True,,"ANSWER: B
+CONFIDENCE: 90",2026-07-14T00:28:46.672060+00:00
+q0060,easy,llama3.1,unconstrained,B,B,True,,True,,"To answer this question, let's break it down step by step:
+
+1. **Understanding the types of long-term memories**: There are several types of long-term memories, including episodic (events), semantic (facts and knowledge), procedural (skills), and eidetic (highly detailed visual recall).
+
+2. **Analyzing the question**: The question asks about knowing different categories of trees and where they grow best. This involves recalling facts or general knowledge about a specific subject.
+
+3. **Matching with memory types**:
+   - Episodic memory is about remembering events, which doesn't fit this scenario.
+   - Semantic memory is for storing factual information, which aligns perfectly with knowing different categories of trees and their growth conditions.
+   - Procedural memory involves skills or pr",2026-07-14T00:29:02.754698+00:00
+q0060,easy,mistral,constrained,B,B,True,100.0,True,," ANSWER: B
+CONFIDENCE: 100",2026-07-14T00:29:07.806933+00:00
+q0060,easy,mistral,unconstrained,B,B,True,,True,, FINAL_ANSWER: B. semantic memory,2026-07-14T00:29:09.649648+00:00
+q0091,medium,llama3.1,constrained,B,B,True,80.0,True,,"ANSWER: B
+CONFIDENCE: 80",2026-07-14T00:29:15.677138+00:00
+q0091,medium,llama3.1,unconstrained,B,B,True,,True,,"To answer this question, let's consider why countries might try to protect their own firms from international competition.
+
+First, we can eliminate option D because it suggests that international conflict is the reason for protectionism. However, most countries engage in trade with other countries without conflict, so this is unlikely to be the main reason.
+
+Next, we can look at options A and C. Option A suggests that leadership is irrational, which might be a factor in some cases, but it's not a general explanation for why countries try to protect their firms. Similarly, option C mentions regime type, which could influence trade policies, but it's too vague to be the main reason.
+
+Now, let's consider option B: ""Costs of free trade are concentrated, but benefits are dispersed."" This is a k",2026-07-14T00:29:37.222460+00:00
+q0091,medium,mistral,constrained,B,B,True,95.0,True,," ANSWER: B
+CONFIDENCE: 95",2026-07-14T00:29:42.777371+00:00
+q0091,medium,mistral,unconstrained,B,B,True,,True,," FINAL_ANSWER: B. Costs of free trade are concentrated, but benefits are dispersed",2026-07-14T00:29:45.258278+00:00
+q0080,medium,llama3.1,constrained,D,D,True,80.0,True,,"ANSWER: D
+CONFIDENCE: 80",2026-07-14T00:29:51.278059+00:00
+q0080,medium,llama3.1,unconstrained,B,D,False,,True,,"To answer this question, we need to think about the characteristics of each good in terms of their total and marginal utility.
+
+- Total Utility refers to the overall satisfaction or benefit derived from consuming a good.
+- Marginal Utility is the additional satisfaction or benefit obtained from consuming one more unit of a good.
+
+Let's analyze each option:
+
+A. Plastic: While plastic can provide some utility, it's not typically considered a luxury item that would provide high total utility. Its marginal utility might decrease quickly as well since its benefits are relatively limited.
+
+B. Automobiles: Cars offer significant convenience and comfort, providing both high total utility and potentially high marginal utility for the first few units consumed (e.g., owning your first car). However, ",2026-07-14T00:30:15.621876+00:00
+q0080,medium,mistral,constrained,D,D,True,95.0,True,," ANSWER: D
+CONFIDENCE: 95",2026-07-14T00:30:20.684580+00:00
+q0080,medium,mistral,unconstrained,D,D,True,,True,," To answer this question, let's consider the law of diminishing marginal utility. This states that as more units of a good are consumed, each additional unit provides less total utility than the previous one.
+
+1. Plastic (A) can be used in various applications such as packaging, construction, and manufacturing goods. However, once we have enough plastic for these purposes, additional plastic will not significantly increase our overall satisfaction or utility.
+
+2. Automobiles (B) are essential for transportation but have a limited number of uses per vehicle. After acquiring one, the marginal utility of each additional automobile decreases rapidly due to costs and storage limitations.
+
+3. Computers (C) offer significant benefits in terms of productivity, entertainment, and communication. How",2026-07-14T00:30:38.877459+00:00
+q0111,hard,llama3.1,constrained,A,B,False,85.0,True,,"ANSWER: A
+CONFIDENCE: 85",2026-07-14T00:30:45.893024+00:00
+q0111,hard,llama3.1,unconstrained,A,B,False,,True,,"(i) is false because adjusted R-squared is a measure of the goodness of fit of a model, whereas information criteria are used to compare models.
+
+(ii) is true because if the residual sum of squares falls when an additional term is added, it means that the new model fits the data better than the old one. Since the residual sum of squares is part of the formula for many information criteria (such as AIC and BIC), adding a term that decreases the residual sum of squares will decrease the value of these criteria.
+
+(iii) is true because Akaike's information criterion (AIC) always leads to model orders that are at least as large as those of Schwarz's information criterion (BIC). This is because AIC does not penalize for overfitting as much as BIC does, so it tends to choose larger models.
+
+(iv) ",2026-07-14T00:31:04.441183+00:00
+q0111,hard,mistral,constrained,A,B,False,95.0,True,," ANSWER: A
+CONFIDENCE: 95",2026-07-14T00:31:10.258848+00:00
+q0111,hard,mistral,unconstrained,A,B,False,,True,," FINAL_ANSWER: A. (ii) and (iv) only
+
+Here's the reasoning behind each statement:
+
+(i) Adjusted R-squared is a measure of goodness-of-fit that takes into account the number of predictors in the model, but it is not strictly an information criterion. Information criteria like AIC (Akaike's Information Criterion) and BIC (Bayesian Information Criterion) are more appropriate for this question.
+
+(ii) If the residual sum of squares falls when an additional term is added, the value of the information criterion will generally fall because it includes a penalty term that increases with the number of parameters in the model, so adding fewer parameters (and thus reducing the residual sum of squares) will result in a lower information criterion value.
+
+(iii) Akaike's information criterion (AIC) and S",2026-07-14T00:31:34.176836+00:00
+q0100,hard,llama3.1,constrained,D,D,True,95.0,True,,"ANSWER: D
+CONFIDENCE: 95",2026-07-14T00:31:40.739173+00:00
+q0100,hard,llama3.1,unconstrained,D,D,True,,True,,"To determine the number of parameters required to be estimated in a standard form, unrestricted, tri-variate VAR(4), we need to consider the number of coefficients for each equation and then multiply by 3 (since there are three equations).
+
+In a VAR model, each lagged term has a coefficient. For example, in a VAR(2) with one variable, the first equation would have two lagged terms: y1(t-1) and y1(t-2), both of which have coefficients to be estimated.
+
+For a tri-variate VAR(4), we need to consider each variable's equations separately. Each variable has its own set of lagged terms for itself and other variables, up to the specified order (in this case, 4).
+
+The general form of a tri-variate VAR(p) is:
+
+y1(t) = β11*y1(t-1) + β12*y2(t-1) + β13*y3(t-1) + ... + β1p*y1(t-p) + β2p*y2(t-p) + β3p*y3",2026-07-14T00:32:14.433443+00:00
+q0100,hard,mistral,constrained,A,D,False,100.0,True,," ANSWER: A
+CONFIDENCE: 100",2026-07-14T00:32:19.743570+00:00
+q0100,hard,mistral,unconstrained,A,D,False,,True,," The VAR(4) stands for Vector Autoregression of order 4. In a tri-variate VAR(p), there are p lags for each of the three variables, resulting in 3*p equations. Each equation has as many parameters as the number of lagged terms plus the constant term (intercept). Since we're ignoring intercepts, the number of lagged terms will be the total number of parameters.
+
+For a VAR(4), each equation would have 5 terms (including the current value of the variable and its four lags). In a tri-variate model, there are three equations. So, the total number of parameters is 3 * 5 = 15. However, since one parameter is shared across all three equations (the constant term), we subtract it from our total, leaving us with 12 parameters to be estimated in total.
+
+FINAL_ANSWER: A",2026-07-14T00:32:33.527031+00:00
