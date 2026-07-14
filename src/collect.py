@@ -50,8 +50,17 @@ def already_done_keys(df: pd.DataFrame) -> set[tuple]:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--smoke", action="store_true", help="Run 3 questions × all models × 1 trial")
-    parser.add_argument("--resume", action="store_true", help="Skip cells already in results CSV")
+    parser.add_argument("--smoke", action="store_true", help="Run 3 questions × selected models × 1 trial")
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Skip cells already in results CSV (recommended when adding a model)",
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="DANGEROUS: ignore existing final_results.csv and replace it",
+    )
     parser.add_argument("--models", nargs="*", default=None, help="Optional subset of model ids")
     parser.add_argument("--limit-questions", type=int, default=None)
     args = parser.parse_args()
@@ -77,14 +86,19 @@ def main() -> None:
 
     trials = 1 if args.smoke else int(cfg["trials_per_question"])
     gemini_sleep = float(cfg.get("gemini_sleep_seconds", 4.0))
+    anthropic_sleep = float(cfg.get("anthropic_sleep_seconds", 1.0))
     ollama_sleep = float(cfg.get("ollama_sleep_seconds", 0.1))
 
+    # Always preserve existing results unless --overwrite (prevents wiping Llama/Mistral)
     existing = pd.DataFrame()
     done: set[tuple] = set()
-    if args.resume and out_path.exists():
+    if out_path.exists() and not args.overwrite:
         existing = pd.read_csv(out_path)
         done = already_done_keys(existing)
-        print(f"Resuming with {len(done)} completed cells from {out_path}")
+        print(f"Found existing results: {len(existing)} rows ({len(done)} cells). Will APPEND new work.")
+        print("Skipping cells that already exist (safe merge mode).")
+    elif args.overwrite and out_path.exists():
+        print("WARNING: --overwrite set; existing final_results.csv will be replaced.")
 
     rows: list[dict] = []
     total = len(bank) * len(models) * trials
@@ -138,6 +152,8 @@ def main() -> None:
 
                 if model["backend"] == "gemini":
                     time.sleep(gemini_sleep)
+                elif model["backend"] == "anthropic":
+                    time.sleep(anthropic_sleep)
                 else:
                     time.sleep(ollama_sleep)
 
