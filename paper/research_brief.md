@@ -10,7 +10,7 @@
 
 [Problem] Large language models are increasingly used as decision-support tools, yet users often treat fluent answers as reliable.  
 [Gap] While LLM calibration has been studied, fewer student-accessible audits jointly (i) elicit verbal confidence, (ii) stratify items by pre-registered difficulty, (iii) compare multiple free models, and (iv) relate patterns to classic human hard–easy findings.  
-[Method] We evaluate Gemini 1.5 Flash, Llama 3.1 8B, and Mistral 7B on a frozen stratified MMLU subset (~180 items; 3 domains × 3 difficulties; 2 trials; temperature 0.3). Models must answer A–D and report confidence 0–100. We compute accuracy, overconfidence gap, ECE, and difficulty–overconfidence slopes.  
+[Method] We evaluate Claude Haiku (Anthropic API), Llama 3.1 8B, and Mistral 7B on a frozen stratified MMLU subset (~180 items; 3 domains × 3 difficulties; 2 trials; temperature 0.3). Models must answer A–D and report confidence 0–100. We compute accuracy, overconfidence gap, ECE, and difficulty–overconfidence slopes.  
 [Result] REPLACE WITH REAL NUMBERS (e.g., “Overconfidence increased from easy to hard for N/3 models; mean ECE ranged from X to Y”).  
 [Implication] Verbal confidence is an imperfect reliability signal; human review remains necessary on harder items.  
 [Limitation] Verbal ratings ≠ token probabilities; MMLU ≠ open-ended deployment.
@@ -40,9 +40,10 @@ Deployed LLM assistants often accompany answers with implicit or explicit confid
 - Sampling: up to 20 questions per domain × difficulty (seed=42) → target ~180 items; report actual N from `data/question_bank.csv`.
 
 ### Models & decoding
-- Gemini 1.5 Flash (API)  
+- Claude Haiku (Anthropic API)  
 - Llama 3.1 (Ollama)  
 - Mistral (Ollama)  
+- (Exploratory) Gemini Flash — largely blocked by free-tier quota; not primary  
 - Temperature 0.3; 2 independent trials per question×model.
 
 ### Confidence elicitation prompt
@@ -72,7 +73,7 @@ Rows with failed parse (missing ANSWER or CONFIDENCE) are excluded from metric c
 ### Overall calibration
 | Model | N | Accuracy | Mean conf. | Overconf. gap | ECE |
 |---|---|---|---|---|---|
-| gemini_flash | | | | | |
+| claude_haiku | | | | | |
 | llama3.1 | | | | | |
 | mistral | | | | | |
 
@@ -109,7 +110,7 @@ about whether confidence tracks accuracy *under the same elicitation protocol*.
 5. Human hard–easy baselines use different paradigms — compare directionally only.  
 6. Fixed temperature (0.3).  
 7. Model-version / date specific (July 2026).  
-8. Parse failures / API quota (Gemini) reduce usable N for some models; primary analyses use successfully parsed rows and report parse rates.  
+8. Parse failures / exploratory Gemini quota issues reduce usable N for some arms; primary analyses focus on Claude Haiku, Llama 3.1, and Mistral with reported parse rates.  
 
 
 ---
@@ -134,8 +135,9 @@ If overconfidence rises with difficulty, verbal self-reports are a weak standalo
 ## Appendix: AI Use Transparency Statement
 
 **Tools used**
-- Gemini 1.5 Flash — experimental subject; also may assist drafting  
+- Claude Haiku (Anthropic) — experimental subject  
 - Llama 3.1 / Mistral via Ollama — experimental subjects  
+- Gemini Flash — exploratory only (quota-limited)  
 - Cursor / other coding assistants — code scaffolding & debugging  
 - HuggingFace `datasets` — MMLU access  
 

@@ -20,7 +20,7 @@ pre-registered difficulty tiers, domain splits, and human-baseline
 comparison remain limited for student-led reproducible studies.
 
 METHOD
-We evaluate three LLMs (Gemini 1.5 Flash, Llama 3.1 8B, Mistral 7B) on a
+We evaluate three LLMs (Claude Haiku, Llama 3.1 8B, Mistral 7B) on a
 frozen stratified MMLU subset (~180 items; STEM / Social Science /
 Humanities; easy/medium/hard tiers; temperature 0.3; 2 trials). Models
 provide ANSWER + CONFIDENCE (0–100). We compute ECE, overconfidence gap,

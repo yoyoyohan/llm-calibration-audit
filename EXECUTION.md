@@ -37,8 +37,8 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-- Get a free Gemini key: https://aistudio.google.com/apikey  
-- Put it in `.env` as `GEMINI_API_KEY=...`  
+- Get an Anthropic API key: https://console.anthropic.com/  
+- Put it in `.env` as `ANTHROPIC_API_KEY=...`  
 - **Never commit `.env`**
 
 ### 3. Ollama
@@ -56,7 +56,7 @@ curl http://localhost:11434/api/tags
 ```bash
 source .venv/bin/activate
 python src/smoke_test.py --ollama
-python src/smoke_test.py --gemini
+python src/smoke_claude.py
 ```
 
 You want parsed output like `('B', 80, True)`.
@@ -76,7 +76,7 @@ In the paper you will say:
 | Domains | STEM, Social_Science, Humanities |
 | Difficulty | Pre-registered subject tiers in `config/difficulty_map.yaml` |
 | Qs / cell | 20 per domain×difficulty → ~180 total |
-| Models | Gemini 1.5 Flash, Llama 3.1, Mistral |
+| Models | Claude Haiku, Llama 3.1, Mistral |
 | Trials | 2 |
 | Temperature | 0.3 |
 | Metrics | accuracy, confidence, overconfidence gap, ECE, slope over difficulty |
@@ -115,7 +115,7 @@ python src/collect.py
 python src/collect.py --resume
 ```
 
-Gemini is rate-limited (~4s sleep). Ollama is local CPU — overnight OK.
+Claude Haiku uses ~1s sleep between calls. Ollama is local CPU — overnight OK.
 
 ### Akul
 - [ ] Create Google Doc / edit `paper/research_brief.md` with all section headings  
@@ -230,7 +230,8 @@ python src/build_question_bank.py --per-cell 5   # smaller
 python src/collect.py --smoke
 python src/collect.py
 python src/collect.py --resume
-python src/collect.py --models llama3.1 mistral   # skip gemini temporarily
+python src/collect.py --models llama3.1 mistral   # local models only
+python src/collect.py --models claude_haiku        # API arm
 
 # analyze
 python src/analyze.py
@@ -240,7 +241,7 @@ python src/analyze.py
 - `questions_per_cell` — default 20  
 - `trials_per_question` — default 2  
 - `temperature` — default 0.3  
-- `gemini_sleep_seconds` — raise if 429 errors  
+- `anthropic_sleep_seconds` — raise if Anthropic rate-limits  
 
 ---
 
@@ -260,7 +261,7 @@ python src/analyze.py
 
 | Problem | Fix |
 |---|---|
-| `GEMINI_API_KEY missing` | Create `.env` from `.env.example` |
+| `ANTHROPIC_API_KEY missing` | Create `.env` from `.env.example` |
 | Ollama connection error | Start Ollama app; `ollama list` |
 | MMLU download slow/fails | Re-run builder; need network; HF cache will reuse |
 | Empty domain×difficulty cell | Warning is OK; fewer than 180 Qs still fine — report actual n |

@@ -1,4 +1,4 @@
-"""LLM backends: Gemini API + Ollama local."""
+"""LLM backends: Anthropic Claude (primary API) + Ollama local + optional Gemini."""
 from __future__ import annotations
 
 import os
@@ -89,6 +89,54 @@ def call_gemini(prompt: str, model_name: Optional[str] = None, temperature: Opti
     raise LLMClientError(f"Gemini call failed after retries: {last_err}")
 
 
+def call_anthropic(prompt: str, model_name: Optional[str] = None, temperature: Optional[float] = None) -> str:
+    """Claude Messages API (Haiku recommended for this study)."""
+    cfg = load_experiment()
+    api_key = os.getenv("ANTHROPIC_API_KEY")
+    if not api_key or api_key.startswith("your_anthropic"):
+        raise LLMClientError(
+            "ANTHROPIC_API_KEY missing. Add it to .env from https://console.anthropic.com/"
+        )
+
+    model = model_name or os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001")
+    temp = cfg["temperature"] if temperature is None else temperature
+    max_tokens = int(cfg.get("max_output_tokens", 256))
+
+    url = "https://api.anthropic.com/v1/messages"
+    headers = {
+        "x-api-key": api_key,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+    }
+    payload = {
+        "model": model,
+        "max_tokens": max_tokens,
+        "temperature": temp,
+        "messages": [{"role": "user", "content": prompt}],
+    }
+
+    last_err: Exception | None = None
+    for attempt in range(3):
+        try:
+            resp = requests.post(url, headers=headers, json=payload, timeout=90)
+            if resp.status_code == 429:
+                last_err = LLMClientError(f"429 rate/quota: {resp.text[:300]}")
+                time.sleep(10 * (attempt + 1))
+                continue
+            resp.raise_for_status()
+            data = resp.json()
+            parts = data.get("content") or []
+            texts = [p.get("text", "") for p in parts if isinstance(p, dict) and p.get("type") == "text"]
+            text = "\n".join(t for t in texts if t).strip()
+            if not text:
+                raise LLMClientError(f"Anthropic empty content: {data}")
+            return text
+        except Exception as e:  # noqa: BLE001
+            last_err = e
+            time.sleep(2 * (attempt + 1))
+    raise LLMClientError(f"Anthropic call failed after retries: {last_err}")
+
+
 def call_ollama(prompt: str, model_name: str, temperature: Optional[float] = None) -> str:
     cfg = load_experiment()
     temp = cfg["temperature"] if temperature is None else temperature
@@ -121,6 +169,8 @@ def call_ollama(prompt: str, model_name: str, temperature: Optional[float] = Non
 def call_model(backend: str, model_name: str, prompt: str) -> str:
     if backend == "gemini":
         return call_gemini(prompt, model_name=model_name)
+    if backend == "anthropic":
+        return call_anthropic(prompt, model_name=model_name)
     if backend == "ollama":
         return call_ollama(prompt, model_name=model_name)
     raise LLMClientError(f"Unknown backend: {backend}")

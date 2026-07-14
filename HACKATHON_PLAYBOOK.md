@@ -28,7 +28,7 @@ Do **not** create a second project called `nsri-hackathon-2026` or rewrite every
 | Topic | External mega-guide | **What we actually run** | Why |
 |---|---|---|---|
 | Domains | 5 (incl. Medicine, Professional) | **3:** STEM, Social_Science, Humanities | Fits time; still domain analysis |
-| Models | 4 (incl. Gemma2) | **3:** Gemini Flash, Llama 3.1, Mistral | Faster; add Gemma2 only if Day 2 ahead |
+| Models | 4 (incl. Gemma2) | **3:** Claude Haiku, Llama 3.1, Mistral | Faster; Gemini was exploratory only (quota) |
 | Qs / cell | 40 | **20** (~180 total) | Finishable |
 | Trials | 3 | **2** | Enough for light consistency |
 | API key | Pasted into `.py` / Tracker | **`.env` only** (never GitHub) | Security |
@@ -64,7 +64,7 @@ CONFIDENCE: [integer 0-100]
 
 ## Method (one paragraph — use in Day 1 / Day 2 docs)
 
-We evaluate Gemini 1.5 Flash, Llama 3.1 (Ollama), and Mistral (Ollama) on a frozen, difficulty-stratified MMLU subset (~180 questions; 3 domains × 3 difficulty tiers; 2 trials; temperature 0.3). Difficulty tiers are **pre-registered** in `config/difficulty_map.yaml` from MMLU subject difficulty patterns (Hendrycks et al., 2021). Each model returns ANSWER + CONFIDENCE (0–100). We compute accuracy, overconfidence gap, ECE, and how overconfidence scales with difficulty, and compare **directionally** to human hard–easy baselines (Lichtenstein et al., 1982; Kruger & Dunning, 1999).
+We evaluate Claude Haiku (Anthropic API), Llama 3.1 (Ollama), and Mistral (Ollama) on a frozen, difficulty-stratified MMLU subset (~180 questions; 3 domains × 3 difficulty tiers; 2 trials; temperature 0.3). Difficulty tiers are **pre-registered** in `config/difficulty_map.yaml` from MMLU subject difficulty patterns (Hendrycks et al., 2021). Each model returns ANSWER + CONFIDENCE (0–100). We compute accuracy, overconfidence gap, ECE, and how overconfidence scales with difficulty, and compare **directionally** to human hard–easy baselines (Lichtenstein et al., 1982; Kruger & Dunning, 1999).
 
 **Metrics:** accuracy · mean confidence · overconfidence gap (conf − acc) · ECE · difficulty→overconfidence slope  
 **Hero figure:** `figures/figure2_overconfidence_by_difficulty.png`
@@ -136,7 +136,7 @@ metacognitive failure documented in cognitive psychology?
 === KEY LINKS ===
 GitHub: https://github.com/yoyoyohan/llm-calibration-audit
 Results CSV (after collect): data/raw/final_results.csv in the repo
-Gemini API key: DO NOT PASTE HERE — send to Yohan on WhatsApp only
+Anthropic API key: DO NOT PASTE HERE — send to Yohan on WhatsApp only
 
 === PAPERS ===
 1. Kruger & Dunning 1999
@@ -146,8 +146,8 @@ Gemini API key: DO NOT PASTE HERE — send to Yohan on WhatsApp only
 5. Xiong et al. 2024
 ```
 
-### A3. Gemini API key
-1. https://aistudio.google.com → **Get API key** → Create  
+### A3. Anthropic API key (Claude Haiku)
+1. https://console.anthropic.com → API keys → Create  
 2. Send key to Yohan on **WhatsApp/Discord only** (not Drive, not GitHub)
 
 ### A4. Literature start
@@ -177,7 +177,7 @@ MMLU PDF: https://arxiv.org/abs/2009.03300 (note Table 1 human accuracies)
 - [x] Pushed to https://github.com/yoyoyohan/llm-calibration-audit
 
 ### B1. Specs
-Apple menu → About This Mac → RAM (≥8 GB needed for Ollama; else Gemini-only fallback)
+Apple menu → About This Mac → RAM (≥8 GB needed for Ollama; else Claude-API-only fallback)
 
 ### B2. One-time Mac setup (copy exactly)
 
@@ -192,7 +192,7 @@ pip install -r requirements.txt
 
 cp .env.example .env
 open -e .env
-# set: GEMINI_API_KEY=...   (from Akul via WhatsApp)
+# set: ANTHROPIC_API_KEY=...   (from Akul via WhatsApp)
 ```
 
 ### B3. Ollama
@@ -437,8 +437,9 @@ python src/final_verification.py
 
 | Script | Purpose |
 |---|---|
-| `src/setup_verify.py` | Imports + Ollama + Gemini connectivity |
-| `src/smoke_test.py` | One prompt parse test |
+| `src/setup_verify.py` | Imports + Ollama + Claude connectivity |
+| `src/smoke_test.py` | Ollama parse smoke test |
+| `src/smoke_claude.py` | Claude Haiku parse smoke test |
 | `src/build_question_bank.py` | Freeze MMLU sample |
 | `src/collect.py` | Run all model calls → `data/raw/final_results.csv` |
 | `src/analyze.py` | Tables + figures 1–3 |

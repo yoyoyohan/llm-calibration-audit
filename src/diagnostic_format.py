@@ -7,7 +7,8 @@ hurts accuracy — for Methodology / Limitations discussion only.
 
 Usage:
   python src/diagnostic_format.py
-  python src/diagnostic_format.py --models llama3.1 mistral   # skip Gemini if quota
+  python src/diagnostic_format.py --models llama3.1 mistral   # local only
+  python src/diagnostic_format.py --models claude_haiku       # API arm
   python src/diagnostic_format.py --n 5
 """
 from __future__ import annotations

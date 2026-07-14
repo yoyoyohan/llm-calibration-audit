@@ -7,18 +7,23 @@ questions_per_cell: 20   # per domain × difficulty
 random_seed: 42
 
 models:
-  - id: gemini_flash
-    backend: gemini
-    # Stable alias; gemini-1.5/2.5-flash often 404 for new API keys
-    model_name: gemini-flash-latest
+  # Primary closed/API model
+  - id: claude_haiku
+    backend: anthropic
+    model_name: claude-haiku-4-5-20251001
   - id: llama3.1
     backend: ollama
     model_name: llama3.1
   - id: mistral
     backend: ollama
     model_name: mistral
+  # Optional / historical — free-tier quota failed in main run; not primary analysis
+  - id: gemini_flash
+    backend: gemini
+    model_name: gemini-flash-latest
 
-# Gemini free-tier pacing (~15 RPM). Increase if you hit 429s.
+# API pacing
+anthropic_sleep_seconds: 1.0
 gemini_sleep_seconds: 4.0
 ollama_sleep_seconds: 0.1
 

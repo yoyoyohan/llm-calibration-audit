@@ -22,8 +22,8 @@ INITIAL METHOD PLAN (SCOPED — matches our GitHub pipeline):
    MMLU difficulty patterns. Domains: STEM, Social Science, Humanities.
    Target ~20 questions per domain × difficulty (~180 total).
 
-2. Models: Gemini 1.5 Flash (API), Llama 3.1 (Ollama), Mistral (Ollama).
-   (Optional stretch: Gemma2 if time.)
+2. Models: Claude Haiku (Anthropic API), Llama 3.1 (Ollama), Mistral (Ollama).
+   (Gemini was explored early but not retained as a primary arm due to API quota.)
 
 3. Protocol: For each question, each model returns ANSWER (A–D) and
    CONFIDENCE (0–100). Temperature 0.3. Two trials per question×model.
