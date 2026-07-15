@@ -120,34 +120,50 @@ def main() -> None:
         domain_ece_rows.append({"model_id": model_id, "domain": domain, "ece": ece, "n": len(sub)})
     domain_ece = pd.DataFrame(domain_ece_rows)
 
-    # DK / hard-easy slope: overconfidence ~ difficulty_numeric, per model
+    # Primary: response-level OLS of per-response gap on difficulty (adequate n)
+    # Secondary: cell-mean trends kept for figure interpretation only (3 points; not for inference)
+    df["overconfidence_gap_row"] = df["confidence_norm"] - df["is_correct"].astype(float)
     dk_rows = []
-    for model_id, sub in summary.groupby("model_id"):
-        sub = sub.dropna(subset=["overconfidence_gap"])
-        if len(sub) < 2:
-            continue
-        x = sub["difficulty"].map(DIFFICULTY_NUMERIC).astype(float)
-        y = sub["overconfidence_gap"].astype(float)
+    conf_sd_rows = []
+    for model_id, sub in df.groupby("model_id", observed=False):
+        x = sub["difficulty_numeric"].astype(float)
+        y = sub["overconfidence_gap_row"].astype(float)
         X = sm.add_constant(x)
         try:
             model = sm.OLS(y, X).fit()
             slope = float(model.params.iloc[1])
             p_value = float(model.pvalues.iloc[1])
             r2 = float(model.rsquared)
+            se = float(model.bse.iloc[1])
+            ci_lo, ci_hi = [float(v) for v in model.conf_int().iloc[1].tolist()]
         except Exception:  # noqa: BLE001
-            slope, p_value, r2 = np.nan, np.nan, np.nan
-        corr, corr_p = stats.pearsonr(x, y) if len(sub) >= 3 else (np.nan, np.nan)
+            slope, p_value, r2, se, ci_lo, ci_hi = np.nan, np.nan, np.nan, np.nan, np.nan, np.nan
+        rho, rho_p = stats.spearmanr(x, y) if len(sub) >= 3 else (np.nan, np.nan)
         dk_rows.append(
             {
                 "model_id": model_id,
+                "n": int(len(sub)),
                 "dk_slope": slope,
+                "dk_se": se,
+                "dk_ci_lo": ci_lo,
+                "dk_ci_hi": ci_hi,
                 "dk_p_value": p_value,
                 "dk_r_squared": r2,
-                "hard_easy_corr": corr,
-                "hard_easy_corr_p": corr_p,
+                "spearman_rho": float(rho) if rho == rho else np.nan,
+                "spearman_p": float(rho_p) if rho_p == rho_p else np.nan,
+            }
+        )
+        conf_sd_rows.append(
+            {
+                "model_id": model_id,
+                "n": int(len(sub)),
+                "mean_confidence_0_100": float(sub["confidence"].mean()),
+                "sd_confidence": float(sub["confidence"].std()),
+                "pct_confidence_ge_95": float((sub["confidence"] >= 95).mean()),
             }
         )
     dk_df = pd.DataFrame(dk_rows)
+    conf_sd_df = pd.DataFrame(conf_sd_rows)
 
     # Overall ECE by model
     overall_rows = []
@@ -170,6 +186,8 @@ def main() -> None:
     summary.to_csv(processed_dir / "summary_by_model_difficulty.csv", index=False)
     domain_ece.to_csv(processed_dir / "ece_by_model_domain.csv", index=False)
     dk_df.to_csv(processed_dir / "dk_hard_easy_slopes.csv", index=False)
+    dk_df.to_csv(processed_dir / "response_level_difficulty_regression.csv", index=False)
+    conf_sd_df.to_csv(processed_dir / "confidence_dispersion_by_model.csv", index=False)
     overall.to_csv(processed_dir / "overall_by_model.csv", index=False)
 
     meta = {
