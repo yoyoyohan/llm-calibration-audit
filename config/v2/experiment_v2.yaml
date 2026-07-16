@@ -1,0 +1,58 @@
+# =============================================================================
+# Experiment config v2 — Methods note (pasteable)
+# =============================================================================
+# Relative to the hackathon-submitted (v1) study, this configuration changes
+# two decoding/protocol knobs that will apply uniformly to every model in v2
+# collection: (1) max_output_tokens is raised from 256 to 512 to reduce
+# truncation-driven parse failures when models emit long text before the
+# required ANSWER/CONFIDENCE tags; (2) trials_per_question is raised from 2
+# to 5 to improve per-item statistical reliability. Temperature remains 0.3.
+# The verbal elicitation prompt template is unchanged character-for-character
+# from v1 (src/prompts.py). The original frozen 180-item bank is preserved
+# untouched; a separate supplement bank (seed 43) expands coverage. Model
+# expansion (OpenAI/Gemini/etc.) is deferred to Phase 2 and is not configured
+# here beyond placeholder structure.
+# =============================================================================
+
+config_version: "v2"
+created_date: "2026-07-16"
+frozen_bank_source: "data/v1_frozen/bank_original_180.json"
+supplement_bank_source: "data/v2/bank_supplement_360.json"
+full_bank_source: "data/v2/bank_full_v2.json"
+
+temperature: 0.3
+max_output_tokens: 512
+trials_per_question: 5
+
+# Exact v1 prompt template (from src/prompts.py PROMPT_TEMPLATE_FOR_PAPER /
+# build_confidence_prompt). Do not edit without starting a new config_version.
+prompt_template: |
+  Answer the following multiple-choice question. Then rate your confidence.
+
+  Question: {question}
+
+  A. {choice_a}
+  B. {choice_b}
+  C. {choice_c}
+  D. {choice_d}
+
+  Respond in EXACTLY this format with no other text:
+  ANSWER: [A/B/C/D]
+  CONFIDENCE: [integer 0-100]
+
+  Example of a valid reply:
+  ANSWER: B
+  CONFIDENCE: 70
+
+# Placeholder — Phase 2 will populate active models. v1 arms listed for reference.
+primary_models_planned:
+  - claude_haiku
+  - llama3.1
+  - mistral
+  # Phase 2+: gpt4o_mini, gemini_flash, ...
+
+# API pacing placeholders (Phase 2)
+anthropic_sleep_seconds: 1.0
+openai_sleep_seconds: 0.5
+gemini_sleep_seconds: 4.0
+ollama_sleep_seconds: 0.1
