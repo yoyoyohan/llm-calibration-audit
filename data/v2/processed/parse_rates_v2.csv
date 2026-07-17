@@ -1,0 +1,4 @@
+model_id,n,parse_ok_rate
+claude_haiku,2700,1.0
+gemini_flash,2700,1.0
+gpt4o_mini,2700,1.0

@@ -1,0 +1,4 @@
+model_id,n_with_internal,note,pearson_r_verbal_internal,pearson_p,ece_verbal,ece_internal
+claude_haiku,0,insufficient / unavailable internal probs,,,,
+gpt4o_mini,2700,,0.22195165701888564,1.7411181757105158e-31,0.15703703703703692,0.2434573420856218
+gemini_flash,0,insufficient / unavailable internal probs,,,,

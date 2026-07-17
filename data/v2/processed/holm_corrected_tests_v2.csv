@@ -1,0 +1,7 @@
+test,p_raw,p_holm,rank
+claude_haiku_hard_gt_easy,0.0,0.0,1
+gpt4o_mini_hard_gt_easy,0.0,0.0,2
+gemini_flash_hard_gt_easy,0.0,0.0,3
+gpt4o_mini_slope_ne_0,1.0428718045729258e-56,3.128615413718777e-56,4
+gemini_flash_slope_ne_0,3.6313433450033663e-22,7.262686690006733e-22,5
+claude_haiku_slope_ne_0,7.763811614482804e-05,7.763811614482804e-05,6

@@ -3,10 +3,12 @@
 # =============================================================================
 # Relative to the hackathon-submitted (v1) study, this configuration changes
 # two decoding/protocol knobs that will apply uniformly to every model in v2
-# collection: (1) max_output_tokens is raised from 256 to 512 to reduce
+# collection: (1) max_output_tokens is raised from 256 to 1024 to reduce
 # truncation-driven parse failures when models emit long text before the
-# required ANSWER/CONFIDENCE tags; (2) trials_per_question is raised from 2
+# required ANSWER/CONFIDENCE tags (512 was still insufficient for Claude on
+# hard STEM items in Phase 2 smoke); (2) trials_per_question is raised from 2
 # to 5 to improve per-item statistical reliability. Temperature remains 0.3.
+# Parse failures additionally trigger up to 2 repair retries (see src/parse_retry.py).
 # The verbal elicitation prompt template is unchanged character-for-character
 # from v1 (src/prompts.py). The original frozen 180-item bank is preserved
 # untouched; a separate supplement bank (seed 43) expands coverage. Model
@@ -21,8 +23,9 @@ supplement_bank_source: "data/v2/bank_supplement_360.json"
 full_bank_source: "data/v2/bank_full_v2.json"
 
 temperature: 0.3
-max_output_tokens: 512
+max_output_tokens: 1024
 trials_per_question: 5
+parse_max_attempts: 3
 
 # Exact v1 prompt template (from src/prompts.py PROMPT_TEMPLATE_FOR_PAPER /
 # build_confidence_prompt). Do not edit without starting a new config_version.
@@ -44,12 +47,11 @@ prompt_template: |
   ANSWER: B
   CONFIDENCE: 70
 
-# Placeholder — Phase 2 will populate active models. v1 arms listed for reference.
+# Models collected for this submission (Ollama arms intentionally omitted).
 primary_models_planned:
   - claude_haiku
-  - llama3.1
-  - mistral
-  # Phase 2+: gpt4o_mini, gemini_flash, ...
+  - gpt4o_mini
+  - gemini_flash
 
 # API pacing placeholders (Phase 2)
 anthropic_sleep_seconds: 1.0

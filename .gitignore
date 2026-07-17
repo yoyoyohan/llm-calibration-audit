@@ -10,5 +10,8 @@ __pycache__/
 .DS_Store
 .ipynb_checkpoints/
 data/raw/checkpoints/
+data/v2/raw/
+!data/v2/raw/.gitkeep
+data/v2/cost_log.json
 *.log
 .pytest_cache/

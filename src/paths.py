@@ -18,6 +18,11 @@ def load_experiment() -> dict:
     return load_yaml(ROOT / "config" / "experiment.yaml")
 
 
+def load_experiment_v2() -> dict:
+    """Load v2 experiment config (temperature / max_tokens / trials)."""
+    return load_yaml(ROOT / "config" / "v2" / "experiment_v2.yaml")
+
+
 def ensure_dirs() -> None:
     cfg = load_experiment()
     for key in ("checkpoint_dir", "processed_dir", "figures_dir"):

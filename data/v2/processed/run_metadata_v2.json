@@ -1,0 +1,16 @@
+{
+  "stamp": "20260716T175808Z",
+  "n_raw": 8100,
+  "n_analyzed": 8100,
+  "primary_models": [
+    "claude_haiku",
+    "gpt4o_mini",
+    "gemini_flash"
+  ],
+  "n_bootstrap": 2000,
+  "max_output_tokens": 1024,
+  "trials_per_question": 5,
+  "temperature": 0.3,
+  "ollama_models_collected": false,
+  "note": "Empirical difficulty via Llama/Mistral omitted \u2014 Ollama not collected in this submission."
+}

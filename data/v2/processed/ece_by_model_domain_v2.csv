@@ -1,0 +1,10 @@
+model_id,domain,ece,n
+claude_haiku,Humanities,0.04658888888888892,900
+claude_haiku,STEM,0.0116777777777779,900
+claude_haiku,Social_Science,0.05738888888888883,900
+gpt4o_mini,Humanities,0.1563888888888888,900
+gpt4o_mini,STEM,0.24744444444444444,900
+gpt4o_mini,Social_Science,0.08727777777777761,900
+gemini_flash,Humanities,0.12788888888888894,900
+gemini_flash,STEM,0.1406666666666665,900
+gemini_flash,Social_Science,0.08105555555555566,900
