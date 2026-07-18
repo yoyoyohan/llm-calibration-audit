@@ -12,6 +12,7 @@
 | LaTeX manuscript | [`paper/manuscript_v2.tex`](./paper/manuscript_v2.tex) |
 | Manuscript figures | [`paper/figures/`](./paper/figures/) |
 | Research brief | [`paper/research_brief.md`](./paper/research_brief.md) |
+| **Evaluation dataset (540 MMLU items)** | [`data/v2/bank_full_v2.json`](./data/v2/bank_full_v2.json) — see [`data/README.md`](./data/README.md) |
 | Processed results (8,100 rows) | [`data/v2/processed/final_results_v2.csv`](./data/v2/processed/final_results_v2.csv) |
 | Analysis figures | [`figures/v2/`](./figures/v2/) |
 
