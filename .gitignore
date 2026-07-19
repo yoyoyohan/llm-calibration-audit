@@ -15,3 +15,23 @@ data/v2/raw/
 data/v2/cost_log.json
 *.log
 .pytest_cache/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+paper/*.pdf
+!paper/archive/**
+
+# Editor / OS
+*.swp
+*~
+.idea/
+.vscode/
